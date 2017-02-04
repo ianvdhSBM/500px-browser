@@ -5,10 +5,12 @@ const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const request = require('request');
 
 /*
   App setup
 */
+
 
 const app = express();
 
@@ -20,9 +22,29 @@ const CONSUMER_KEY = process.env.CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.CONSUMER_SECRET;
 
 
+// API URLs
+const ROOT_URL = 'https://api.500px.com/v1/photos?';
+const CONSUMER_KEY_SETTING = `consumer_key=${CONSUMER_KEY}&`;
+const URL_SETTINGS = 'feature=popular&sort=created_at&image_size=3&include_store=store_download&include_states=voted';
+
+const API_URL = `${ROOT_URL}${CONSUMER_KEY_SETTING}${URL_SETTINGS}`;
+
+console.log(API_URL);
+
 // Routes
-app.get('/', function(req, res, next) {
+app.get('/', function(req, res) {
   res.send({ message: 'success!' });
+});
+
+app.get('/photos', function(req, res) {
+  request(API_URL, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      res.send(body);
+    }
+    if (error) {
+      res.send({ error: error });
+    }
+  });
 });
 
 
