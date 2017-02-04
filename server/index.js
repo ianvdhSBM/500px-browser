@@ -1,9 +1,10 @@
+// Initialize dotenv to add consumer key and secret to proces.env
+require('dotenv').config();
+
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const passport = require('passport');
-const _500pxStrategy = require('passport-500px').Strategy;
 
 /*
   App setup
@@ -13,6 +14,10 @@ const app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
+
+// Configure passport
+const CONSUMER_KEY = process.env.CONSUMER_KEY;
+const CONSUMER_SECRET = process.env.CONSUMER_SECRET;
 
 
 // Routes
