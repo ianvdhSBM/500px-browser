@@ -8,5 +8,13 @@
     "dev": "nodemon index.js"
   },
   "author": "Ian Van Den Heuvel",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-500px": "^0.2.1"
+  }
 }
