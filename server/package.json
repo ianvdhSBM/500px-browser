@@ -1,0 +1,12 @@
+{
+  "name": "500px-browser-server",
+  "version": "1.0.0",
+  "description": "Server for 500px-browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "Ian Van Den Heuvel",
+  "license": "ISC"
+}
