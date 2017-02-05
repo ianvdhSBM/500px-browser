@@ -1,0 +1,7 @@
+.photo-frame {
+  padding: 25px;
+
+  &:last-child {
+    float: left !important;
+  }
+}
