@@ -6,6 +6,7 @@ const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const request = require('request');
+const cors = require('cors');
 
 /*
   App setup
@@ -16,6 +17,7 @@ const app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
+app.use(cors());
 
 // Configure passport
 const CONSUMER_KEY = process.env.CONSUMER_KEY;
@@ -25,11 +27,10 @@ const CONSUMER_SECRET = process.env.CONSUMER_SECRET;
 // API URLs
 const ROOT_URL = 'https://api.500px.com/v1/photos?';
 const CONSUMER_KEY_SETTING = `consumer_key=${CONSUMER_KEY}&`;
-const URL_SETTINGS = 'feature=popular&sort=created_at&image_size=3&include_store=store_download&include_states=voted';
+const URL_SETTINGS = 'feature=popular&sort=created_at&image_size=3&include_store=store_download&include_states=voted&rpp=100';
 
 const API_URL = `${ROOT_URL}${CONSUMER_KEY_SETTING}${URL_SETTINGS}`;
 
-console.log(API_URL);
 
 // Routes
 app.get('/', function(req, res) {
