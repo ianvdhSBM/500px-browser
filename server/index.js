@@ -6,6 +6,7 @@ const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const request = require('request');
+const cors = require('cors');
 
 /*
   App setup
@@ -16,6 +17,7 @@ const app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
+app.use(cors());
 
 // Configure passport
 const CONSUMER_KEY = process.env.CONSUMER_KEY;
