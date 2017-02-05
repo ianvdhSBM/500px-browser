@@ -29,7 +29,7 @@ const ROOT_URL = 'https://api.500px.com/v1/photos?';
 const CONSUMER_KEY_SETTING = `consumer_key=${CONSUMER_KEY}&`;
 const URL_SETTINGS = 'feature=popular&sort=created_at&image_size=3&include_store=store_download&include_states=voted&rpp=100';
 
-const API_URL = `${ROOT_URL}${CONSUMER_KEY_SETTING}${URL_SETTINGS}`;
+const API_URL_GET_PHOTOS = `${ROOT_URL}${CONSUMER_KEY_SETTING}${URL_SETTINGS}`;
 
 
 // Routes
@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/photos', function(req, res) {
-  request(API_URL, function(error, response, body) {
+  request(API_URL_GET_PHOTOS, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       res.send(body);
     }
@@ -48,6 +48,9 @@ app.get('/photos', function(req, res) {
   });
 });
 
+app.get('/login', function(req, res) {
+  res.send('request received!');
+});
 
 /*
   Server setup

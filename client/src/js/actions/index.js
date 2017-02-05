@@ -15,3 +15,12 @@ export const getPhotos = () => {
       });
   };
 };
+
+export const request500pxLogin = () => {
+  return function(dispatch) {
+    axios.get(`${CONSTANTS.SERVER_BASE_URL}/login`)
+    .then(response => {
+      console.log(response);
+    });
+  };
+};
