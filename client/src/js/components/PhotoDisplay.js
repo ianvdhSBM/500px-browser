@@ -25,8 +25,8 @@ class PhotoDisplay extends React.Component {
       },
     } = this;
 
+    // if data is still being fetched, show a loading spinner
     if (!photosData) {
-      // if the data is still loading, show a loading spinner
       return <ReactSpinner />;
     }
 

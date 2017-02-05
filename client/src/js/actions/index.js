@@ -2,13 +2,16 @@ import axios from 'axios';
 import {
   GET_PHOTOS,
 } from './types';
-
-import sampleData from '../sampleData';
+import CONSTANTS from '../constants';
 
 export const getPhotos = () => {
-
-  return {
-    type: GET_PHOTOS,
-    payload: sampleData,
+  return function(dispatch) {
+    return axios.get(`${CONSTANTS.SERVER_BASE_URL}/photos`)
+      .then(response => {
+        dispatch({
+          type: GET_PHOTOS,
+          payload: response.data,
+        });
+      });
   };
 };
