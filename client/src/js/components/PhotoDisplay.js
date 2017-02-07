@@ -6,7 +6,9 @@ import PhotoDisplayItem from './PhotoDisplayItem';
 
 // Redux
 import { connect } from 'react-redux';
-import { getPhotos } from '../actions';
+import {
+  getPhotos,
+} from '../actions';
 
 
 class PhotoDisplay extends React.Component {
@@ -42,10 +44,12 @@ class PhotoDisplay extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
   return {
     photosData: state.PhotosReducer.photosData,
+    authenticated: state.UserReducer.authenticated,
   };
 };
+
+
 
 export default connect(mapStateToProps, { getPhotos })(PhotoDisplay);

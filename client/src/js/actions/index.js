@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   GET_PHOTOS,
+  IS_AUTHENTICATED,
 } from './types';
 import CONSTANTS from '../constants';
 
@@ -16,15 +17,12 @@ export const getPhotos = () => {
   };
 };
 
-export const request500pxLogin = () => {
+// data is an object of { token<token, expires>>, authenticated<bool> } 
+export const updateAuthenticatedStatus = (data) => {
   return function(dispatch) {
-    window.location = 'http://localhost:3000/login/500px/';
-    // return axios.get(`${CONSTANTS.SERVER_BASE_URL}/login/500px`)
-    // .then(response => {
-    //   console.log('RESPONSE', response.request.responseURL);
-    //   window.open(response.request.responseURL, '', 'top=100,left=100,width=800,height=800');
-    // }).catch(err => {
-    //   console.log(err);
-    // });
+    dispatch({
+      type: IS_AUTHENTICATED,
+      payload: data,
+    });
   };
 };
