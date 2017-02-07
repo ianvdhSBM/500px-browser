@@ -28,25 +28,26 @@ const CLIENT_URL = 'http://localhost:8080';
   Passport setup
 */
 
-// passport.serializeUser(function(user, done) {
-//   // console.log('SERIALIZING', user);
-//   done(null, user);
-// });
-//
-// passport.deserializeUser(function(obj, done) {
-//   // console.log('DE-SERIALIZING', obj);
-//   done(null, obj);
-// });
+passport.serializeUser(function(user, done) {
+  console.log('SERIALIZING', user);
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  console.log('DE-SERIALIZING', obj);
+  done(null, obj);
+});
 
 passport.use(new _500pxStrategy({
     consumerKey: CONSUMER_KEY,
     consumerSecret: CONSUMER_SECRET,
-    callback: CALLBACK_URL,
+    callbackURL: CALLBACK_URL,
   },
   function(token, tokenSecret, profile, done) {
-    User.findOrCreate({ '500pxId': profile.id}, function(err, user) {
-      return done(err, user);
-    });
+    done(null, profile);
+    // User.findOrCreate({ '500pxId': profile.id}, function(err, user) {
+    //   return done(err, user);
+    // });
   }
 ));
 
@@ -55,9 +56,6 @@ passport.use(new _500pxStrategy({
 */
 
 const app = express();
-// const corsOptions = {
-//   origin: CLIENT_URL,
-// }
 
 
 app.use(morgan('combined'));
@@ -99,14 +97,14 @@ app.get('/photos', function(req, res) {
 app.get('/login/500px',
   passport.authenticate('500px'),
   function(req, res) {
-    console.log(res);
+
   });
 
 app.get('/login/500px/callback',
   passport.authenticate('500px', { failureRedirect: '/' }),
   function(req, res) {
-    console.log('IN CALLBACK');
-    console.log(res);
+    console.log('IN HERE', req.query);
+    res.redirect(`${CLIENT_URL}?oauth=${req.query.oauth_token}`);
   });
 
 /*

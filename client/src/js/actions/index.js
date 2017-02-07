@@ -18,12 +18,13 @@ export const getPhotos = () => {
 
 export const request500pxLogin = () => {
   return function(dispatch) {
-    return axios.get(`${CONSTANTS.SERVER_BASE_URL}/login/500px`)
-    .then(response => {
-      console.log('RESPONSE', response.request.responseURL);
-      window.location.href = response.request.responseURL;
-    }).catch(err => {
-      console.log(err);
-    });
+    window.location = 'http://localhost:3000/login/500px/';
+    // return axios.get(`${CONSTANTS.SERVER_BASE_URL}/login/500px`)
+    // .then(response => {
+    //   console.log('RESPONSE', response.request.responseURL);
+    //   window.open(response.request.responseURL, '', 'top=100,left=100,width=800,height=800');
+    // }).catch(err => {
+    //   console.log(err);
+    // });
   };
 };
