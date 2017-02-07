@@ -9,6 +9,7 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
   case GET_PHOTOS:
     return {
+      ...state,
       photosData: action.payload,
     };
   default:

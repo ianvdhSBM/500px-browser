@@ -18,9 +18,12 @@ export const getPhotos = () => {
 
 export const request500pxLogin = () => {
   return function(dispatch) {
-    axios.get(`${CONSTANTS.SERVER_BASE_URL}/login`)
+    return axios.get(`${CONSTANTS.SERVER_BASE_URL}/login/500px`)
     .then(response => {
-      console.log(response);
+      console.log('RESPONSE', response.request.responseURL);
+      window.location.href = response.request.responseURL;
+    }).catch(err => {
+      console.log(err);
     });
   };
 };

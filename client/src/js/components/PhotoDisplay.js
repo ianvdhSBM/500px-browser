@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import sampleData from '../sampleData';
 
 // Components
 import ReactSpinner from 'react-spinjs';
@@ -13,6 +12,7 @@ import { getPhotos } from '../actions';
 class PhotoDisplay extends React.Component {
   static PropTypes = {
     photosData: PropTypes.object.isRequired,
+    getPhotos: PropTypes.func.isRequired,
   }
   componentDidMount = () => {
     this.props.getPhotos();
@@ -33,6 +33,7 @@ class PhotoDisplay extends React.Component {
     return <div className="row">
       {
         photosData.photos.map((photo, i) => {
+          if (photo.nsfw) return;
           return <PhotoDisplayItem key={i} photo={photo} />;
         })
       }

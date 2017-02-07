@@ -5,7 +5,7 @@ A web app that queries the 500px public API for popular pictures.
 Built in: ...
 
 
-## CONSUMER_KEY & CONSUMER_SECRET
+## 500PX CONSUMER_KEY & CONSUMER_SECRET
 
 I have used the [dotenv](https://github.com/motdotla/dotenv) to add the CONSUMER_KEY & CONSUMER_SECRET variables to `process.env`.
 
