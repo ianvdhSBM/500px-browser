@@ -49,9 +49,23 @@ class App extends React.Component {
     }
   }
 
+  handleLogout = () => {
+    localStorage.removeItem(OAUTH_TOKEN);
+    this.props.updateAuthenticatedStatus({
+      token: null,
+      authenticated: false,
+    });
+  }
+
   render() {
+    const {
+      props: {
+        authenticated,
+      },
+    } = this;
+
     return <div>
-      <LoginHeader/>
+      <LoginHeader authenticated={authenticated} handleLogout={this.handleLogout}/>
       {this.props.children}
     </div>;
   }
