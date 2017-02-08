@@ -29,12 +29,10 @@ const CLIENT_URL = 'http://localhost:8080';
 */
 
 passport.serializeUser(function(user, done) {
-  console.log('SERIALIZING', user);
   done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-  console.log('DE-SERIALIZING', obj);
   done(null, obj);
 });
 
@@ -103,8 +101,8 @@ app.get('/login/500px',
 app.get('/login/500px/callback',
   passport.authenticate('500px', { failureRedirect: '/' }),
   function(req, res) {
-    console.log('IN HERE', req.query);
-    res.redirect(`${CLIENT_URL}?oauth=${req.query.oauth_token}`);
+
+    res.redirect(`${CLIENT_URL}?oauth_token=${req.query.oauth_token}`);
   });
 
 /*
