@@ -7,30 +7,74 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const request = require('request');
 const cors = require('cors');
+const passport = require('passport');
+const _500pxStrategy = require('passport-500px').Strategy;
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+
+const CONSUMER_KEY = process.env.CONSUMER_KEY;
+const CONSUMER_SECRET = process.env.CONSUMER_SECRET;
+
+// URLs
+const ROOT_URL = 'https://api.500px.com/v1/photos?';
+const CONSUMER_KEY_SETTING = `consumer_key=${CONSUMER_KEY}&`;
+const URL_SETTINGS = 'feature=popular&sort=created_at&image_size=3&include_store=store_download&include_states=voted&rpp=100';
+const CALLBACK_URL = 'http://localhost:3000/login/500px/callback/';
+const CLIENT_URL = 'http://localhost:8080';
+
+
+/*
+  Passport setup
+*/
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+passport.use(new _500pxStrategy({
+    consumerKey: CONSUMER_KEY,
+    consumerSecret: CONSUMER_SECRET,
+    callbackURL: CALLBACK_URL,
+  },
+  function(token, tokenSecret, profile, done) {
+    done(null, profile);
+    // User.findOrCreate({ '500pxId': profile.id}, function(err, user) {
+    //   return done(err, user);
+    // });
+  }
+));
 
 /*
   App setup
 */
 
-
 const app = express();
 
+
 app.use(morgan('combined'));
-app.use(bodyParser.json({ type: '*/*' }));
 app.use(cors());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json({ type: '*/*' }));
+app.use(session({
+  secret: 'The rain in Spain falls mainly in the plains',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/public'));
 
-// Configure passport
-const CONSUMER_KEY = process.env.CONSUMER_KEY;
-const CONSUMER_SECRET = process.env.CONSUMER_SECRET;
 
 
-// API URLs
-const ROOT_URL = 'https://api.500px.com/v1/photos?';
-const CONSUMER_KEY_SETTING = `consumer_key=${CONSUMER_KEY}&`;
-const URL_SETTINGS = 'feature=popular&sort=created_at&image_size=3&include_store=store_download&include_states=voted&rpp=100';
-
-const API_URL = `${ROOT_URL}${CONSUMER_KEY_SETTING}${URL_SETTINGS}`;
-
+const API_URL_GET_PHOTOS = `${ROOT_URL}${CONSUMER_KEY_SETTING}${URL_SETTINGS}`;
 
 // Routes
 app.get('/', function(req, res) {
@@ -38,7 +82,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/photos', function(req, res) {
-  request(API_URL, function(error, response, body) {
+  request(API_URL_GET_PHOTOS, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       res.send(body);
     }
@@ -48,6 +92,18 @@ app.get('/photos', function(req, res) {
   });
 });
 
+app.get('/login/500px',
+  passport.authenticate('500px'),
+  function(req, res) {
+
+  });
+
+app.get('/login/500px/callback',
+  passport.authenticate('500px', { failureRedirect: '/' }),
+  function(req, res) {
+
+    res.redirect(`${CLIENT_URL}?oauth_token=${req.query.oauth_token}`);
+  });
 
 /*
   Server setup

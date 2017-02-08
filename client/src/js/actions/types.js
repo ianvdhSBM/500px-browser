@@ -1,1 +1,2 @@
 export const GET_PHOTOS = 'GET_PHOTOS';
+export const IS_AUTHENTICATED = 'IS_AUTHENTICATED';

@@ -1,16 +1,16 @@
 import {
-  GET_PHOTOS,
+  IS_AUTHENTICATED,
 } from '../actions/types';
 
-const INITIAL_STATE = { photosData: null };
+const INITIAL_STATE = { authenticated: false };
 
 export default function(state = INITIAL_STATE, action) {
-
   switch (action.type) {
-  case GET_PHOTOS:
+  case IS_AUTHENTICATED:
     return {
       ...state,
-      photosData: action.payload,
+      authenticated: action.payload.authenticated,
+      token: action.payload.token,
     };
   default:
     return state;
