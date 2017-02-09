@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import {
   getPhotos,
 } from '../actions';
-
+import sampleData from '../sampleData';
 
 class PhotoDisplay extends React.Component {
   static PropTypes = {
@@ -17,25 +17,24 @@ class PhotoDisplay extends React.Component {
     getPhotos: PropTypes.func.isRequired,
   }
   componentDidMount = () => {
-    this.props.getPhotos();
+    // this.props.getPhotos();
   };
 
   render() {
     const {
       props: {
-        photosData,
+        // photosData,
       },
     } = this;
 
     // if data is still being fetched, show a loading spinner
-    if (!photosData) {
-      return <ReactSpinner />;
-    }
+    // if (!photosData) {
+    //   return <ReactSpinner />;
+    // }
 
     return <div className="row">
       {
-        photosData.photos.map((photo, i) => {
-          if (photo.nsfw) return;
+        sampleData.photos.map((photo, i) => {
           return <PhotoDisplayItem key={i} photo={photo} />;
         })
       }
