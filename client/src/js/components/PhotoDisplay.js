@@ -17,27 +17,36 @@ class PhotoDisplay extends React.Component {
     getPhotos: PropTypes.func.isRequired,
   }
   componentDidMount = () => {
-    // this.props.getPhotos();
+    this.props.getPhotos();
   };
 
   render() {
     const {
       props: {
-        // photosData,
+        photosData,
       },
     } = this;
 
     // if data is still being fetched, show a loading spinner
-    // if (!photosData) {
-    //   return <ReactSpinner />;
-    // }
+    if (!photosData) {
+      return <ReactSpinner />;
+    }
 
-    return <div className="row">
-      {
-        sampleData.photos.map((photo, i) => {
-          return <PhotoDisplayItem key={i} photo={photo} />;
-        })
-      }
+    return <div>
+      <div className="row">
+        <div className="column medium-2 large-2 medium-offset-10 large-offset-10 reload-button">
+          <a onClick={this.props.getPhotos} className="button secondary">Reload Photos</a>
+        </div>
+      </div>
+      <div className="row">
+        {
+          // sampleData.photos.map((photo, i) => {
+          photosData.photos.map((photo, i) => {
+            if (photo.nsfw) return;
+            return <PhotoDisplayItem key={i} photo={photo} />;
+          })
+        }
+      </div>
     </div>;
   }
 }

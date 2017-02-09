@@ -1,12 +1,16 @@
 // Handles styling for PhotoDisplay and its child components
 
+.reload-button {
+  text-align: right;
+}
 
 .photo-frame {
   position: relative;
   padding: 25px 25px 25px 25px;
   border-top: solid 3px $gray-90;
   border-radius: 3px;
-  transition: border-color 0.5s, background-color 0.3s;
+  transition: border-color 0.5s, background-color 0.5s;
+  margin-bottom: 20px;
 
   img {
     margin-top: 10px;
@@ -19,7 +23,6 @@
     .info-button, .like-button {
       opacity: 1;
     }
-
   }
 
   .info-button {
