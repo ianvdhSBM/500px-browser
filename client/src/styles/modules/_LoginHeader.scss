@@ -1,0 +1,15 @@
+.login-header {
+  background-color: #87bbe5;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.4);
+
+  .button {
+    margin: 0;
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
