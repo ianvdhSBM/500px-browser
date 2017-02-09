@@ -21,9 +21,12 @@ class LoginHeader extends React.Component {
       },
     } = this;
 
-    return <div className="header">
+    return <div className="login-header">
       <div className="row">
-        <div className="column medium-offset-10 medium-3 large-3">
+        <div className="column large-9 medium-8 header-title">
+          <h3>500px browser</h3>
+        </div>
+        <div className="column large-3 medium-4 login-buttons">
           {
             !authenticated &&
             <a onClick={this.request500pxLogin} className="button success">Login with 500px</a>
