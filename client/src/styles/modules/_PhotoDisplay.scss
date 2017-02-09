@@ -13,12 +13,18 @@
   }
 
   &:hover {
-    border-color: $header-blue;
+    border-color: $border-blue;
     background-color: #fff;
+
+    .info-button, .like-button {
+      opacity: 1;
+    }
 
   }
 
   .info-button {
+    opacity: 0;
+    transition: opacity 0.3s;
 
     .svg-info-button {
       fill: $gray-40;
@@ -33,6 +39,8 @@
   }
 
   .like-button {
+    opacity: 0;
+    transition: opacity 0.3s;
 
     .svg-like-button {
       fill: #ffa7b6;
@@ -58,10 +66,10 @@
     top: 57px;
     left: 25px;
     bottom: 25px;
-    right: 10px;
+    right: 25px;
     padding: 10px;
     font-weight: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
     transition: opacity 0.5s;
 
     li {
