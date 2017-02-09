@@ -1,7 +1,9 @@
-.photo-frame {
-  padding: 25px;
+@import "modules/definitions";
 
-  &:last-child {
-    float: left !important;
-  }
+body {
+  background-color: $gray-90;
 }
+
+
+// imported styles
+@import "modules/PhotoDisplay";
