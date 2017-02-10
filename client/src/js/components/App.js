@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 
   buildErrorNodes = (error) => {
-    let array = [];
+    const array = [];
     Object.keys(error).map(key => {
       return array.push(<li key={key} className="error-list"><strong>{key}</strong> - {error[key]}</li>);
     });
