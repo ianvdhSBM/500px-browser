@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 
 export default class LikeButton extends React.Component {
   static propTypes = {
-    authenticated: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool,
     handleLikePhotoRequest: PropTypes.func.isRequired,
-    photoId: PropTypes.string.isRequired,
+    photoId: PropTypes.number.isRequired,
   }
   state = {
     liked: false,

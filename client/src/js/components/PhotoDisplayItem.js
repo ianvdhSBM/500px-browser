@@ -7,9 +7,9 @@ import PhotoInfoView from './PhotoInfoView';
 
 export default class PhotoDisplayItem extends React.Component {
   static propTypes = {
-    photo: PropTypes.object.isRequired,
+    authenticated: PropTypes.bool,
     handleLikePhotoRequest: PropTypes.func.isRequired,
-    authenticated: PropTypes.bool.isRequired,
+    photo: PropTypes.object.isRequired,
   }
   state = {
     showPhotoInfo: false,

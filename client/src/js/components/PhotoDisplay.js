@@ -18,7 +18,7 @@ import {
 
 class PhotoDisplay extends React.Component {
   static propTypes = {
-    authenticated: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool,
     error: PropTypes.object,
     getPhotos: PropTypes.func.isRequired,
     likePhoto: PropTypes.func.isRequired,
