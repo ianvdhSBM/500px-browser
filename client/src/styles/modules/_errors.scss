@@ -1,0 +1,24 @@
+.error-window {
+  width: 500px;
+  min-height: 300px;
+
+  .error-header {
+    text-align: center;
+    background-color: $error-red;
+    color: $white;
+    padding: 5px 0;
+
+    h4 {
+      margin: 0;
+    }
+  }
+
+  .error-body {
+    margin: 20px;
+    color: $gray-30;
+  }
+
+  .error-list {
+    list-style: none;
+  }
+}
