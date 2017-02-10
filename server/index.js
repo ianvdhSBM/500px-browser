@@ -118,7 +118,7 @@ app.post('/photos/:id/vote', function(req, res) {
 
   // generates oauth_signature
   // null field is optional token_secret
-  const signature = oauthSignature.generate('POST', baseUrl, params, CONSUMER_SECRET, null, { encodeSignature: false });
+  const signature = oauthSignature.generate('POST', baseUrl, params, CONSUMER_SECRET);
 
   params['oauth_signature'] = signature;
 
@@ -132,7 +132,7 @@ app.post('/photos/:id/vote', function(req, res) {
     },
   };
 
-  // Tried passing in either the either options or constructedUrl
+  // Tried passing in either the options or constructedUrl
   // as the first argument below.
   // Passing in options (with the signature containing 'null' for the token_secret above),
   // cause a 500 error.
@@ -157,7 +157,7 @@ app.get('/login/500px',
   passport.authenticate('500px'),
   function(req, res) {
     // Never gets called. Passport redirects user to 500px for auth.
-    // Reponse comes back to callback route below.
+    // Reponse comes back to /callback route below.
   }
 );
 

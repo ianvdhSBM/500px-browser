@@ -3,10 +3,7 @@ import React, { PropTypes } from 'react';
 // Components
 import ReactSpinner from 'react-spinjs';
 import PhotoDisplayItem from './PhotoDisplayItem';
-import {
-  UnstyledFlexDialog,
-  ModalContainer,
-} from 'react-modal-dialog';
+import AuthenticationWarningModal from './AuthenticationWarningModal';
 
 // Redux
 import { connect } from 'react-redux';
@@ -14,7 +11,6 @@ import {
   getPhotos,
   likePhoto,
 } from '../actions';
-// import sampleData from '../sampleData';
 
 class PhotoDisplay extends React.Component {
   static propTypes = {
@@ -45,7 +41,7 @@ class PhotoDisplay extends React.Component {
     this.props.likePhoto(photoId, token);
   }
 
-  handleCloseErrorWindow = () => {
+  handleCloseModal = () => {
     this.setState({
       showAuthWarning: false,
     });
@@ -77,7 +73,7 @@ class PhotoDisplay extends React.Component {
 
     return <div>
       <div className="row">
-        <div className="column medium-2 large-2 medium-offset-10 large-offset-10 reload-button">
+        <div className="column medium-3 large-2 medium-offset-9 large-offset-10 reload-button">
           <a onClick={this.props.getPhotos} className="button">Reload Photos</a>
         </div>
       </div>
@@ -98,19 +94,7 @@ class PhotoDisplay extends React.Component {
 
       {
         showAuthWarning &&
-        <ModalContainer onClose={this.handleCloseErrorWindow}>
-          <UnstyledFlexDialog onClose={this.handleCloseErrorWindow}>
-            <div className="error-window">
-              <div className="error-header">
-                <h4>Whoa there.</h4>
-              </div>
-              <div className="error-body">
-                <p>It looks like you're not logged in, ya little rascal!</p>
-                <p>Log in. Then, you can like some photos.</p>
-              </div>
-            </div>
-          </UnstyledFlexDialog>
-        </ModalContainer>
+        <AuthenticationWarningModal handleCloseModal={this.handleCloseModal} />
       }
     </div>;
   }

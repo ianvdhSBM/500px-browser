@@ -4,6 +4,10 @@ A web app that queries the 500px public API for popular pictures.
 
 Built with __React/Redux__ on the front-end and a __Node/Express__ API with [Passport](http://passportjs.org/) (specifically [passport-500px](https://github.com/jeremybenaim/passport-500px)) for OAuth authentication.
 
+I used React because I love working with Javascript and enjoy building components that are highly reusable. Also, being able to write Javascript and HTML in the same file makes DOM manipulation so much easier to manage and follow!
+
+I used Node/Express for the back-end as I wanted a light weight server and was able to leverage my Javascript knowledge.
+
 ## Using this app
 
 To run this app, first, please read the section below regarding __CONSUMER_KEY__ & __CONSUMER_SECRET__ setup. After that, cd into `/server` and run `npm install`, then `npm start`. In a separate window cd into `/client`, run `npm install` and `npm start`.
