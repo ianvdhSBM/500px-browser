@@ -60,9 +60,34 @@ export const likePhoto = (photoId, token) => {
     return axios.post(`${SERVER_BASE_URL}/photos/${photoId}/vote`, {
       oauth_token: token,
     }).then(response => {
-      console.log('RESPONSE', response);
+      if (response.data.statusCode === 401) {
+        dispatch({
+          type: APP_ERROR,
+          payload: {
+            error: 'Unauthorized',
+            status: 401,
+          },
+        });
+      }
+
+      if (response.data.statusCode === 500) {
+        dispatch({
+          type: APP_ERROR,
+          payload: {
+            error: 'Internal Server Error',
+            status: 500,
+          },
+        });
+      }
+
+      // When this route is working, add call to store photo id in an array in PhotoReducer.
+      // Then check against it when rednering photos to make the heart appear red
+
     }).catch(error => {
-      console.log('ERROR', error);
+      dispatch({
+        type: APP_ERROR,
+        payload: error,
+      });
     });
   };
 };
