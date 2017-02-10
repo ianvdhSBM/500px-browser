@@ -132,7 +132,7 @@ app.post('/photos/:id/vote', function(req, res) {
     },
   };
 
-  // Tried passing in either the either options or constructedUrl
+  // Tried passing in either the options or constructedUrl
   // as the first argument below.
   // Passing in options (with the signature containing 'null' for the token_secret above),
   // cause a 500 error.
