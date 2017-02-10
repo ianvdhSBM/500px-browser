@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 export default class PhotoInfoView extends React.Component {
   static propTypes = {
     photo: PropTypes.object.isRequired,
+    showPhotoInfo: PropTypes.bool.isRequired,
   }
 
   render() {

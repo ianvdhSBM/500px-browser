@@ -34,9 +34,13 @@ export default class PhotoDisplayItem extends React.Component {
     } = this;
 
     return <div className="column small-12 medium-6 large-4 photo-frame">
-      <InfoButton handleShowInfo={this.handleShowInfo} authenticated={authenticated} />
-      <LikeButton handleLikePhotoRequest={handleLikePhotoRequest} photoId={photo.id} />
-      <img src={photo.image_url} width={photo.width} />
+      <InfoButton handleShowInfo={this.handleShowInfo} />
+      <LikeButton
+        handleLikePhotoRequest={handleLikePhotoRequest}
+        photoId={photo.id}
+        authenticated={authenticated}
+      />
+      <img src={photo.image_url} width={photo.width} height={photo.height} />
       <PhotoInfoView
         photo={photo}
         showPhotoInfo={showPhotoInfo}
