@@ -2,10 +2,16 @@
 
 A web app that queries the 500px public API for popular pictures.
 
-Built in: ...
+Built with __React/Redux__ on the front-end and a __Node/Express__ API with [Passport](http://passportjs.org/) (specifically [passport-500px](https://github.com/jeremybenaim/passport-500px)) for OAuth authentication.
+
+## Using this app
+
+To run this app, cd into `/server` and run `npm install`, then `npm start`. In a separate window cd into `/client`, run `npm install` and `npm start`.
+
+Please note, if you are running this locally, you may have to disable CORS. There is a handy Chrome extension, [Allow-Control-Allow-Origin:*](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) that makes toggling CORS very easy.
 
 
-## 500PX CONSUMER_KEY & CONSUMER_SECRET
+### 500PX CONSUMER_KEY & CONSUMER_SECRET
 
 I have used the [dotenv](https://github.com/motdotla/dotenv) to add the CONSUMER_KEY & CONSUMER_SECRET variables to `process.env`.
 
