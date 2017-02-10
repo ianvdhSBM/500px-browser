@@ -70,14 +70,14 @@
     background-color: #000;
     opacity: 0;
     color: $white;
-    top: 57px;
+    top: 60px;
     left: 25px;
     bottom: 25px;
     right: 25px;
     padding: 10px;
-    font-weight: 500px;
     overflow-y: auto;
     transition: opacity 0.5s;
+    cursor: default;
 
     li {
       list-style: none;
