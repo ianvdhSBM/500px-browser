@@ -11,6 +11,7 @@ const passport = require('passport');
 const _500pxStrategy = require('passport-500px').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const generateRandomString = require('./helpers/generateRandomString');
 
 
 const CONSUMER_KEY = process.env.CONSUMER_KEY;
