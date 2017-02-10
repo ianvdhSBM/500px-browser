@@ -2,7 +2,7 @@ import {
   IS_AUTHENTICATED,
 } from '../actions/types';
 
-const INITIAL_STATE = { authenticated: false };
+const INITIAL_STATE = { authenticated: false, token: null };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
