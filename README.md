@@ -6,16 +6,15 @@ Built with __React/Redux__ on the front-end and a __Node/Express__ API with [Pas
 
 ## Using this app
 
-To run this app, cd into `/server` and run `npm install`, then `npm start`. In a separate window cd into `/client`, run `npm install` and `npm start`.
+To run this app, first, please read the section below regarding __CONSUMER_KEY__ & __CONSUMER_SECRET__ setup. After that, cd into `/server` and run `npm install`, then `npm start`. In a separate window cd into `/client`, run `npm install` and `npm start`.
 
 Please note, if you are running this locally, you may have to disable CORS. There is a handy Chrome extension, [Allow-Control-Allow-Origin:*](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) that makes toggling CORS very easy.
-
 
 ### 500PX CONSUMER_KEY & CONSUMER_SECRET
 
 I have used the [dotenv](https://github.com/motdotla/dotenv) to add the CONSUMER_KEY & CONSUMER_SECRET variables to `process.env`.
 
-To use this program, you must have your own key and secret (you can get them by going to your 500px account > My Settings > Applications > Register application).
+To use this app, you must have your own key and secret (you can get them by going to your 500px account > My Settings > Applications > Register application).
 
 Once you have a key and secret, follow these steps:
 
@@ -27,4 +26,4 @@ CONSUMER_KEY=abc
 CONSUMER_SECRET=123
 ```
 
-Replace `abc` and `123` with the key and secret you obtained above.
+Replace `abc` and `123` with the key and secret respectively you obtained above.
