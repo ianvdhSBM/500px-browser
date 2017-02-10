@@ -11,8 +11,12 @@ const passport = require('passport');
 const _500pxStrategy = require('passport-500px').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const generateRandomString = require('./helpers/generateRandomString');
+const oauthSignature = require('oauth-signature');
 
+// helpers
+const generateRandomString = require('./helpers/generateRandomString');
+const constructOAuthUrl = require('./helpers/constructOAuthUrl');
+const constructAuthorizationHeader = require('./helpers/constructAuthorizationHeader');
 
 const CONSUMER_KEY = process.env.CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.CONSUMER_SECRET;
@@ -26,7 +30,7 @@ const CALLBACK_URL = 'http://localhost:3000/login/500px/callback/';
 const CLIENT_URL = 'http://localhost:8080';
 
 
-// Constructed URLs
+// Constructed URL
 const API_URL_GET_PHOTOS = `${ROOT_URL}${CONSUMER_KEY_SETTING}${GET_PHOTOS_URL_SETTINGS}`;
 
 /*
@@ -84,46 +88,62 @@ app.get('/photos', function(req, res) {
     if (error) {
       res.send({ error: error });
     }
+
     if (response.statusCode == 200) {
-      res.send(body);
+      return res.send(body);
     }
+
+    // only reaches here if the statusCode is not 200 - for error handling
+    res.send(body);
   });
 });
 
 app.post('/photos/:id/vote', function(req, res) {
   const photoId = req.params.id;
   const oauthToken = res.req.body.oauth_token;
-  const url = `${ROOT_URL}/${photoId}${LIKE_PHOTO_URL_SETTINGS}`
+  const baseUrl = `${ROOT_URL}/${photoId}${LIKE_PHOTO_URL_SETTINGS}`
+
+  const params = {
+    oauth_token: oauthToken,
+    oauth_consumer_key: CONSUMER_KEY,
+    oauth_signature_method: 'HMAC-SHA1',
+    oauth_timestamp: Date.now(),
+    oauth_nonce: generateRandomString(),
+    oauth_version: '1.0',
+  };
+
+  // generates oauth_signature
+  // null field is optional token_secret
+  const signature = oauthSignature.generate('POST', baseUrl, params, CONSUMER_SECRET, null, { encodeSignature: false });
+
+  params['oauth_signature'] = signature;
+
+  // const constructedUrl = constructOAuthUrl(baseUrl, params);
+  const authorizationHeader = constructAuthorizationHeader(params);
 
   const options = {
-    url: url,
+    url: baseUrl,
     headers: {
-      Authorization: 'OAuth',
-      oauth_token: oauthToken,
-      oauth_consumer_key: CONSUMER_KEY,
-      oauth_consumer_secret: CONSUMER_SECRET,
-      oauth_version: '1.0',
-      oauth_signature_method: 'HMAC-SHA1',
-      oauth_timestamp: Date.now(),
-      oauth_nonce: generateRandomString(),
+      Authorization: authorizationHeader,
     },
   };
 
-  // const finalUrl = `${options.url}&oauth_token=${options.params.oauth_token}&oauth_consumer_key=${options.params.oauth_consumer_key}&oauth_consumer_secret=${options.params.oauth_consumer_secret}&oauth_version=${options.params.oauth_version}&oauth_signature_method=${options.params.oauth_signature_method}&oauth_timestamp=${options.params.oauth_timestamp}&oauth_nonce=${options.params.oauth_nonce}`;
-
-  // console.log('FINAL', finalUrl);
+  // Tried passing in either the either options or constructedUrl
+  // as the first argument below.
+  // Passing in options (with the signature containing 'null' for the token_secret above),
+  // cause a 500 error.
+  // Passing in the constructedUrl causes a 401 error.
   request.post(options, function(err, response, body) {
-    // console.log('res', response);
-    // console.log('body' body);
     if (err) {
       console.log('ERROR!!!!', err);
       res.send({ error: err });
     }
-    console.log('RESPONSE WHOA', response);
-    console.log('BODY OMG!!', body);
-    if (response.statusCode == 200) {
+
+    if (response.statusCode === 200) {
       res.send(body);
     }
+
+    res.send(response);
   });
 });
 
@@ -141,6 +161,7 @@ app.get('/login/500px',
 app.get('/login/500px/callback',
   passport.authenticate('500px', { failureRedirect: '/' }),
   function(req, res) {
+    // console.log('REQUEST', req);
 
     res.redirect(`${CLIENT_URL}?oauth_token=${req.query.oauth_token}`);
   }
