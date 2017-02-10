@@ -69,7 +69,7 @@ class App extends React.Component {
 
   buildErrorNodes = (error) => {
     let array = [];
-    return Object.keys(error).map(key => {
+    Object.keys(error).map(key => {
       return array.push(<li key={key} className="error-list"><strong>{key}</strong> - {error[key]}</li>);
     });
 
@@ -88,8 +88,8 @@ class App extends React.Component {
       },
     } = this;
 
+    // if there are errors, let's make them list items, so they display nicely
     const errorNodes = error && this.buildErrorNodes(error);
-    console.log(errorNodes);
 
     return <div>
       <LoginHeader authenticated={authenticated} handleLogout={this.handleLogout}/>
