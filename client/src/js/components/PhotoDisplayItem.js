@@ -7,8 +7,9 @@ import PhotoInfoView from './PhotoInfoView';
 
 export default class PhotoDisplayItem extends React.Component {
   static propTypes = {
-    photo: PropTypes.object.isRequired,
+    authenticated: PropTypes.bool,
     handleLikePhotoRequest: PropTypes.func.isRequired,
+    photo: PropTypes.object.isRequired,
   }
   state = {
     showPhotoInfo: false,
@@ -23,6 +24,7 @@ export default class PhotoDisplayItem extends React.Component {
   render() {
     const {
       props: {
+        authenticated,
         handleLikePhotoRequest,
         photo,
       },
@@ -32,7 +34,7 @@ export default class PhotoDisplayItem extends React.Component {
     } = this;
 
     return <div className="column small-12 medium-6 large-4 photo-frame">
-      <InfoButton handleShowInfo={this.handleShowInfo} />
+      <InfoButton handleShowInfo={this.handleShowInfo} authenticated={authenticated} />
       <LikeButton handleLikePhotoRequest={handleLikePhotoRequest} photoId={photo.id} />
       <img src={photo.image_url} width={photo.width} />
       <PhotoInfoView

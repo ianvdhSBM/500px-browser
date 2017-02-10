@@ -86,7 +86,11 @@ app.get('/', function(req, res) {
 app.get('/photos', function(req, res) {
   request(API_URL_GET_PHOTOS, function(error, response, body) {
     if (error) {
-      res.send({ error: error });
+      return res.send({ error: error });
+    }
+
+    if (!response) {
+      return res.send({ error: 'error', statusCode: 'Unknown' });
     }
 
     if (response.statusCode == 200) {
