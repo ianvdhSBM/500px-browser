@@ -73,7 +73,7 @@ class PhotoDisplay extends React.Component {
 
     return <div>
       <div className="row">
-        <div className="column medium-2 large-2 medium-offset-10 large-offset-10 reload-button">
+        <div className="column medium-3 large-2 medium-offset-9 large-offset-10 reload-button">
           <a onClick={this.props.getPhotos} className="button">Reload Photos</a>
         </div>
       </div>
