@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class LikeButton extends React.Component {
+  static propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    handleLikePhotoRequest: PropTypes.func.isRequired,
+    photoId: PropTypes.string.isRequired,
+  }
   state = {
     liked: false,
   }
   handleLike = () => {
-    this.setState({
-      liked: !this.state.liked,
-    });
+    // User can't dislike a photo or like a photo twice. If they already
+    // liked it, return.
+    if (this.state.liked) return;
+
+    // If user is not authenticated, don't change state and update
+    // the color of the button
+    if (this.props.authenticated) {
+      this.setState({
+        liked: true,
+      });
+    }
 
     this.props.handleLikePhotoRequest(this.props.photoId);
   }
 
   render() {
     const {
-      props: {
-
-      },
       state: {
         liked,
-      }
+      },
     } = this;
 
     // If user likes a photo, change the fill colour to a darker colour
