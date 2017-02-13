@@ -101,11 +101,11 @@ class App extends React.Component {
           <UnstyledFlexDialog onClose={this.handleCloseErrorWindow}>
             <div className="error-window">
               <div className="error-header">
-                <h4>Danger, Will Robinson, Danger!</h4>
+                <h4>Well, this is embarrassing.</h4>
               </div>
               <div className="error-body">
-                <p>Well, this is embarrassing. We've hit a little snag.</p>
-                <p>Here's some info on what happened.</p>
+                <p>It looks like we've encountered an error.</p>
+                <p>Here is some info on what happened.</p>
                 <ul>
                   {errorNodes}
                 </ul>
